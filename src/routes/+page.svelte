@@ -1,30 +1,13 @@
 <script lang="ts">
-	// @ts-ignore
-	import { see } from 'nejquery'
-	import type {
-		IncrementArrayValues,
-		SetFizzBuzzEntries,
-		JoinArrayWithBreakTag,
-		FizzBuzzEntry,
-		FizzBuzz,
-	} from '../app'
-	import {
-		pipe,
-		map,
-		identity,
-		join,
-		isDivisibleBy,
-		inc,
-		getArrayOfKeys,
-	} from '$lib/utilities'
+	import { identity, see, pipe, map, join, getArrayKeys, isDivBy, inc } from '$lib/utils'
 
 	// Partially applied functions
-	const isDivisibleBy15 = isDivisibleBy(15)
-	const isDivisibleBy5 = isDivisibleBy(5)
-	const isDivisibleBy3 = isDivisibleBy(3)
+	const isDivisibleBy15 = isDivBy(15)
+	const isDivisibleBy5 = isDivBy(5)
+	const isDivisibleBy3 = isDivBy(3)
 
 	// Callback function
-	const createEntry: FizzBuzzEntry = x => {
+	const createEntry = (x: number) => {
 		if (isDivisibleBy15(x)) return 'FizzBuzz'
 		if (isDivisibleBy5(x)) return 'Buzz'
 		if (isDivisibleBy3(x)) return 'Fizz'
@@ -33,18 +16,18 @@
 	}
 
 	// Iteration functions
-	const incrementArrayValues: IncrementArrayValues = map(inc)
-	const setFizzBuzzEntries: SetFizzBuzzEntries = map(createEntry)
-	const joinArrayWithBreakTag: JoinArrayWithBreakTag = join('<br />')
+	const incrementArrayValues = map(inc)
+	const setFizzBuzzEntries = map(createEntry)
+	const joinWithBreakTag = join('<br />')
 
-	// The program in a nutshell
-	const fizzBuzz: FizzBuzz = pipe(
-		see, // console debugging fn
+	// Main function
+	const fizzBuzz: (x: number) => string = pipe(
+		see, // for console debugging
 		Array,
-		getArrayOfKeys,
+		getArrayKeys,
 		incrementArrayValues,
 		setFizzBuzzEntries,
-		joinArrayWithBreakTag
+		joinWithBreakTag
 	)
 </script>
 
